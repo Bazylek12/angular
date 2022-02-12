@@ -1,0 +1,25 @@
+  
+<div class="left"><p>Current points: {{counter}}</p></div>
+<div class="container">
+    <body> 
+
+    <h2>Hello &nbsp; <b>{{userName}}</b></h2>
+    
+    <div class="action-buttons">
+    <button (click)="game.actionStart()" class="start-btn">Start</button>
+    <button (click)="game.actionStop()" class="start-btn">Stop</button>
+    <button (click)="game.actionReset()" class="start-btn">Reset</button>
+    <button (click)="exit()" class="start-btn">Exit</button>
+    </div>  
+    <div class="game">
+    <ngx-snake #game (foodEaten)="increasePoints()" (gameOver)="gameOver()" ></ngx-snake>
+    </div>
+    <div class="play-buttons">
+    <button (click)="game.actionUp()" class='video-game-button'>&#8593;</button>
+    <button (click)="game.actionLeft()" class='video-game-button'>&#8592;</button>
+    <button (click)="game.actionRight()" class='video-game-button'>&#8594;</button>
+    <button (click)="game.actionDown()" class='video-game-button'>&#8595;</button>
+    </div>
+</body>
+</div>
+
