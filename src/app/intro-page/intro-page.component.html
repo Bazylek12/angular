@@ -1,30 +1,32 @@
 <div class="jumbotron vertical-center">
 
-<div class="container-fluid">
+  <div class="container-fluid">
 
-      <h1>Lets play some snake!</h1>
-      <form (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm">
-        <div class="form-group">
-          <label for="userName">Name</label>
-          <input type="text" class="form-control" id="userName"
-                 required
-                 ngModel #inputName="ngModel" name="userName"
-                 #name="ngModel">
-          <div [hidden]="name.valid || name.pristine"
-               class="alert alert-danger">
-            Name is required
-          </div>
+    <h1>Lets play some snake!</h1>
+    <form (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm">
+      <div class="form-group">
+        <label for="userName">Name</label>
+        <input type="text" class="form-control" id="userName" 
+          required 
+          ngModel #name="ngModel" name="userName" maxlength="12" minlength="3"
+          >
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required. Minimum length of name is 3!
         </div>
-        
-        <div class="form-group">
-          <label for="userEmail">Your email</label>
-          <input type="text" class="form-control" id="userEmail"
-                 ngModel #inputEmail="ngModel" name="userEmail">
-        </div>
-  
+      </div>
 
-        <button type="submit" class="btn btn-success" (click)="startGame()" [disabled]="!userForm.form.valid">Submit</button>
-      </form>
-    </div>
-  
+      <div class="form-group">
+        <label for="userEmail">Your email address</label>
+        <input type="text" class="form-control" id="userEmail" 
+          required
+          ngModel #inputEmail="ngModel" name="userEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <div *ngIf="inputEmail.invalid && inputEmail.dirty"[hidden]="inputEmail.valid || inputEmail.pristine" class="alert alert-danger">
+          Email address is incorrect!
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="startGame()"
+        [disabled]="!userForm.form.valid">Submit</button>
+    </form>
+  </div>
+
 </div>

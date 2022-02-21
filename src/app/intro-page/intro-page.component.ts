@@ -9,26 +9,26 @@ export class IntroPageComponent implements OnInit {
   @Output() sendUserObject = new EventEmitter<User>()
   @Output() changeState = new EventEmitter<boolean>()
 
-  
-  model = new User ("", "")
-  submitted:boolean = false;
+
+  model = new User("", "")
+  submitted: boolean = false;
   public userPanelState: boolean = false
 
-    startGame(){
-      this.changeState.emit(this.userPanelState)
-    }
+  startGame() {
+    this.changeState.emit(this.userPanelState)
+  }
 
-  onSubmit(dataFromForm: User) { 
+  onSubmit(dataFromForm: User) {
     this.submitted = true;
     this.sendUserObject.emit(dataFromForm);
-   }
-   public getUserName: string = ''
-   public getUserEmail: string = ''
- 
-   getUserArray(userData: User){
-     this.getUserName = userData.userName;
-     this.getUserEmail = userData.userEmail;
-   }
+  }
+  public getUserName: string = ''
+  public getUserEmail: string = ''
+
+  getUserArray(userData: User) {
+    this.getUserName = userData.userName;
+    this.getUserEmail = userData.userEmail;
+  }
   refresh(): void {
     window.location.reload();
   }
