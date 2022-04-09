@@ -1,7 +1,9 @@
-<div [hidden]="!isVisible">
+<!-- <div [hidden]="!isVisible">
   <app-intro-page (changeState)="stateFromUserPanel($event)" (sendUserObject)="getUserArray($event)"></app-intro-page>
 </div>
 
 <div [hidden]="isVisible">
   <app-game-page [userName]="getUserName" (changeState)="stateFromGamePanel($event)"></app-game-page>
-</div>
+</div> -->
+
+<router-outlet></router-outlet>

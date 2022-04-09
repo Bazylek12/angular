@@ -1,5 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
 
 
 @Component({
@@ -10,9 +12,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class GamePageComponent implements OnInit {
   @Output() changeState = new EventEmitter<boolean>()
   @Input() userName: string = ''
-  constructor() { }
-
-
+  constructor(private _router: Router, private _storageService: StorageService) { }
+  public newName: string ='';
   public counter: number = 0;
   public gamePanelState: boolean = true;
   public mSec: number = 0;
@@ -24,6 +25,7 @@ export class GamePageComponent implements OnInit {
   public actionList: Array<Actions> = [];
   public filter: string = 'asc';
 
+  
   public setInter() {
     this.mSec = this.mSec + 1;
     if (this.mSec >= 100) {
@@ -31,7 +33,7 @@ export class GamePageComponent implements OnInit {
       this.sec = this.sec + 1;
     }
   }
-
+  
   public start() {
     if (!this.isStart && !this.isOver) {
       this.isStart = true;
@@ -50,6 +52,7 @@ export class GamePageComponent implements OnInit {
     clearInterval(this.interval)
     this.mSec = 0;
     this.sec = 0;
+    this.counter = 0;
     this.isStart = false;
     this.isOver = false;
     this.actionList = [];
@@ -71,8 +74,8 @@ export class GamePageComponent implements OnInit {
   }
 
   public exit() {
-    this.changeState.emit(this.gamePanelState)
-    window.location.reload();
+    this.changeState.emit(this.gamePanelState);
+    this._router.navigate(['/login']);
   }
 
   public getAction(actionName: string) {
@@ -83,11 +86,12 @@ export class GamePageComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit() {
+    this._storageService.UserName.subscribe(data=>{
+      this.newName = data;
+    });
 }
-
+}
 export class Actions {
   public actionName: string;
   public actionMsec: number;

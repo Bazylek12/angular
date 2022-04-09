@@ -17,7 +17,7 @@
 <div class="container">
 
     <body>
-        <h2>Hello &nbsp; <b>{{userName}}</b></h2>
+        <h2>Hello &nbsp; <b>{{newName}}</b></h2>
         <div class="action-buttons">
             <button (click)="game.actionStart(); start()" class="start-btn">Start</button>
             <button (click)="game.actionStop(); stop()" class="start-btn">Stop</button>
@@ -25,7 +25,7 @@
             <button (click)="exit()" class="start-btn">Exit</button>
         </div>
         <div class="game">
-            <ngx-snake #game (foodEaten)="increasePoints()" (gameOver)="gameOver()"></ngx-snake>
+            <ngx-snake class="black-and-white" #game (foodEaten)="increasePoints()" (gameOver)="gameOver()"></ngx-snake>
         </div>
         <div class="play-buttons">
             <button (click)="game.actionUp(); getAction('Up')" class='video-game-button'>&#8593;</button>
@@ -35,3 +35,4 @@
         </div>
     </body>
 </div>
+<app-highscores></app-highscores>

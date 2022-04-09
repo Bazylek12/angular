@@ -1,12 +1,16 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {NgxSnakeModule} from 'ngx-snake';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { FormsModule } from '@angular/forms';
 import { GamePageComponent } from './game-page/game-page.component';
 import { SortPipe } from './sort.pipe';
+import { RouterModule } from '@angular/router';
+import { HighscoresComponent } from './highscores/highscores.component';
+import { OrderByPipe } from './order-by.pipe';
+
 
 @NgModule({
     declarations: [
@@ -14,11 +18,19 @@ import { SortPipe } from './sort.pipe';
         IntroPageComponent,
         GamePageComponent,
         SortPipe,
+        HighscoresComponent,
+        OrderByPipe,
     ],
     imports: [
         BrowserModule,
         NgxSnakeModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([
+            { path: 'login', component: IntroPageComponent},
+            { path: 'game', component: GamePageComponent},
+            { path: '**', redirectTo: 'login'}
+        ])
     ],
     providers: [],
     bootstrap: [AppComponent]

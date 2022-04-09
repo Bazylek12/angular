@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
 import { User } from '../user';
 @Component({
   selector: 'app-intro-page',
@@ -6,34 +8,45 @@ import { User } from '../user';
   styleUrls: ['./intro-page.component.scss']
 })
 export class IntroPageComponent implements OnInit {
-  @Output() sendUserObject = new EventEmitter<User>()
-  @Output() changeState = new EventEmitter<boolean>()
+  userName: string = '';
+  // @Output() sendUserObject = new EventEmitter<User>()
+  // @Output() changeState = new EventEmitter<boolean>()
 
+  public constructor(
+    private _router: Router,
+    private _storageService: StorageService,
+    ) {
 
-  model = new User("", "")
-  submitted: boolean = false;
-  public userPanelState: boolean = false
-
-  startGame() {
-    this.changeState.emit(this.userPanelState)
   }
 
-  onSubmit(dataFromForm: User) {
-    this.submitted = true;
-    this.sendUserObject.emit(dataFromForm);
-  }
-  public getUserName: string = ''
-  public getUserEmail: string = ''
+  // model = new User("", "")
+  // submitted: boolean = false;
+  // public userPanelState: boolean = false
 
-  getUserArray(userData: User) {
-    this.getUserName = userData.userName;
-    this.getUserEmail = userData.userEmail;
+  // startGame() {
+  //   this.changeState.emit(this.userPanelState)
+  // }
+
+ 
+  onSubmit(nameFromForm: any) {
+    // this.submitted = true;
+    // this.sendUserObject.emit(dataFromForm);
+    this._router.navigate(['/game']);
+    this._storageService.changeName(nameFromForm.userName);
+
   }
+  // public getUserName: string = ''
+  // public getUserEmail: string = ''
+
+  // getUserArray(userData: User) {
+  //   this.getUserName = userData.userName;
+  //   this.getUserEmail = userData.userEmail;
+  // }
   refresh(): void {
     window.location.reload();
   }
 
-  constructor() { }
+
 
   ngOnInit(): void {
   }
