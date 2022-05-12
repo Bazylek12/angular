@@ -1,5 +1,4 @@
-import { Time } from '@angular/common';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
@@ -10,12 +9,10 @@ import { StorageService } from '../storage.service';
   styleUrls: ['./game-page.component.scss']
 })
 export class GamePageComponent implements OnInit {
-  @Output() changeState = new EventEmitter<boolean>()
-  @Input() userName: string = ''
+
   constructor(private _router: Router, private _storageService: StorageService) { }
-  public newName: string ='';
+  public name: string ='';
   public counter: number = 0;
-  public gamePanelState: boolean = true;
   public mSec: number = 0;
   public sec: number = 0;
   public isStart: boolean = false;
@@ -63,7 +60,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public gameOver() {
-    alert(`You loose ${this.userName}! Your points: ${this.counter} you have played for ${this.sec}.${this.mSec}s`)
+    alert(`You loose ${this.name}! Your points: ${this.counter} you have played for ${this.sec}.${this.mSec}s`)
     this.counter = 0;
     this.mSec = 0;
     this.sec = 0;
@@ -74,7 +71,6 @@ export class GamePageComponent implements OnInit {
   }
 
   public exit() {
-    this.changeState.emit(this.gamePanelState);
     this._router.navigate(['/login']);
   }
 
@@ -88,7 +84,7 @@ export class GamePageComponent implements OnInit {
 
   ngOnInit() {
     this._storageService.UserName.subscribe(data=>{
-      this.newName = data;
+      this.name = data;
     });
 }
 }
