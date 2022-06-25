@@ -1,20 +1,25 @@
-<p>highscores works!</p>
-<label for="selectInput">Sort scores</label>
-<select id="selectInput" [(ngModel)]="filter">
-    <option value="" selected disabled hidden>Choose one</option>
-    <option value="asc">Asc</option>
-    <option value="desc">Desc</option>
-</select>
-
-    <table id="data">
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col}}
-            </th>
-        </tr>
-        <tr *ngFor="let player of data.slice(0,10) | orderBy: filter: data.length">
-            <td *ngFor="let col of indexs">
-                {{player[col]}}
-            </td>
-        </tr>
-    </table>
+<div class="container-login100">
+    <div class="wrap-login100 p-t-50 p-b-90 p-l-50 p-r-50">
+        <div class="highscores">
+            <label for="selectInput">Sort scores</label>
+            <select id="selectInput" [(ngModel)]="filter">
+                <option value="" selected disabled hidden>Choose one</option>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+        </div>
+        <table id="data">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col}}
+                </th>
+            </tr>
+            <tr *ngFor="let player of data.slice(0,10) | orderBy: filter: data.length">
+                <td *ngFor="let col of indexs">
+                    {{player[col]}}
+                </td>
+            </tr>
+        </table>
+        <button (click)="goBack()" class="nv-login-submit login100-form-btn">Go back to the game</button>
+    </div>
+</div>

@@ -1,10 +1,12 @@
 export class User {
 
   public userName: string;
-  public userEmail: string;
+  public token: string;
+  public color: string;
 
-  constructor(userName: string, userEmail: string){
+  constructor(userName: string, token: string, selectedColor: string){
       this.userName = userName;
-      this.userEmail = userEmail;
+      this.token = token;
+      this.color = selectedColor
   }
 }

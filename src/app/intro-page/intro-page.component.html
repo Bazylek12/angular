@@ -1,35 +1,3 @@
-<!-- <div class="jumbotron vertical-center">
-
-  <div class="container-fluid">
-
-    <h1>Lets play some snake!</h1>
-    <form (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm">
-      <div class="form-group">
-        <label for="userName">Name</label>
-        <input type="text" class="form-control" id="userName" 
-          required 
-          ngModel #name="ngModel" name="userName" maxlength="12" minlength="3"
-          >
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-          Name is required. Minimum length of name is 3!
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="userEmail">Your email address</label>
-        <input type="text" class="form-control" id="userEmail" 
-          required
-          ngModel #inputEmail="ngModel" name="userEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-        <div *ngIf="inputEmail.invalid && inputEmail.dirty"[hidden]="inputEmail.valid || inputEmail.pristine" class="alert alert-danger">
-          Email address is incorrect!
-        </div>
-      </div>
-      <button type="submit" class="btn btn-success" 
-        [disabled]="!userForm.form.valid">Submit</button>
-    </form>
-  </div>
-
-</div> -->
 <!DOCTYPE html>
 <html>
 
@@ -44,28 +12,33 @@
 <body>
   <div class="container-login100">
     <div class="wrap-login100 p-t-50 p-b-90 p-l-50 p-r-50">
-      <form class="login100-form flex-sb flex-w" (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm">
+      <form [formGroup]="userForm" class="login100-form flex-sb flex-w" (ngSubmit)="onSubmit(userForm.value);userForm.reset()">
         <span class="login100-form-title">
           <a href="" target="_blank">
             <i class="fas fa-user"></i>
           </a>
         </span>
         <div class="wrap-input100 m-b-16">
-          <input class="input100" type="text" id="userName" placeholder="Username" required ngModel #name="ngModel"
-            name="userName" maxlength="12" minlength="3">
+          <input class="input100" type="text" id="userName" placeholder="Username" formControlName="userName">
           <span class="focus-input100"></span>
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required. Minimum length of name is 3!
+          <div *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.dirty" class="alert alert-danger">
+            Name is required. Minimum length of name is 4 and maximium is 14!
           </div>
         </div>
         <div class="wrap-input100 m-b-16">
-          <input class="input100" type="text" placeholder="Token">
+          <input class="input100" type="text" placeholder="Token" id="token" formControlName="token">
           <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 m-b-16">
+          <select class="input100" id="setColor" formControlName="color">
+            <option value="normalColor">Normal colors</option>
+            <option value="contrast">High contrast</option>
+          </select>
         </div>
         <div class="container-login100-form-btn m-t-17">
           <div class="w-full beforeNone text-center">
             <button type="submit" class="nv-login-submit login100-form-btn"
-              [disabled]="!userForm.form.valid">Submit</button>
+              [disabled]="!userForm.valid">Submit</button>
           </div>
         </div>
       </form>

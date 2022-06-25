@@ -1,44 +1,48 @@
 <div class="container-login100">
     <div class="wrap-login100 p-t-50 p-b-90 p-l-50 p-r-50">
-    <div class="left">
-    <p>Current points: {{counter}}</p>
-    <p>You are playing for {{sec}}:{{mSec}}</p>
-    
-</div>
-<div class="right">
-    <label for="selectInput">Sort moves</label>
-    <select id="selectInput" [(ngModel)]="filter">
-        <option value="asc">Asc</option>
-        <option value="desc">Desc</option>
-    </select>
-    <div class="borderActionList">
-    <p>List of moves:</p>
-    <p *ngFor="let action of actionList | sort: filter: actionList.length">
-        You moved {{action.actionName}} at {{action.actionSec}}:{{action.actionMsec}}
-    </p>
-</div>
-</div>
-<div class="">
+        <div class="left">
+            <p>Current points: {{counter}}</p>
+            <p>You are playing for {{sec}}:{{mSec}}</p>
 
-    <body>
-        <h2>Hello &nbsp; <b>{{name}}</b></h2>
-        <div class="action-buttons">
-            <button (click)="game.actionStart(); start()" class="start-btn">Start</button>
-            <button (click)="game.actionStop(); stop()" class="start-btn">Stop</button>
-            <button (click)="game.actionReset(); reset()" class="start-btn">Reset</button>
-            <button (click)="exit()" class="start-btn">Exit</button>
         </div>
-        <div class="game">
-            <ngx-snake #game (foodEaten)="increasePoints()" (gameOver)="gameOver()"></ngx-snake>
+        <div class="right">
+            <div class="borderActionList">
+                <label for="selectInput">Sort moves</label>
+                <select id="selectInput" [(ngModel)]="filter">
+                    <option value="asc">Asc</option>
+                    <option value="desc">Desc</option>
+                </select>
+
+                <p>List of moves:</p>
+                <p *ngFor="let action of actionList | sort: filter: actionList.length">
+                    You moved {{action.actionName}} at {{action.actionSec}}:{{action.actionMsec}}
+                </p>
+            </div>
         </div>
-        <div class="play-buttons">
-            <button (click)="game.actionUp(); getAction('Up')" class='video-game-button'>&#8593;</button>
-            <button (click)="game.actionLeft(); getAction('Left')" class='video-game-button'>&#8592;</button>
-            <button (click)="game.actionRight(); getAction('Right')" class='video-game-button'>&#8594;</button>
-            <button (click)="game.actionDown(); getAction('Down')" class='video-game-button'>&#8595;</button>
+        <div [ngClass]="{'highContrast': gameParameter == 'contrast'}">
+
+            <body>
+                <h2 [ngClass]="{'highContrast': gameParameter == 'contrast'}">Hello &nbsp; <b>{{name}}</b></h2>
+                <div class="action-buttons">
+                    <button (click)="game.actionStart(); start()" class="start-btn">Start</button>
+                    <button (click)="game.actionStop(); stop()" class="start-btn">Stop</button>
+                    <button (click)="game.actionReset(); reset()" class="start-btn">Reset</button>
+                    <button (click)="exit()" class="start-btn">Exit</button>
+                </div>
+                <div class="game">
+                    <ngx-snake 
+                    [ngClass]="{'black-and-white': gameParameter == 'contrast'}"
+                    #game (foodEaten)="increasePoints()" (gameOver)="gameOver()"></ngx-snake>
+                </div>
+                <div class="play-buttons">
+                    <button (click)="game.actionUp(); getAction('Up')" class='video-game-button'>&#8593;</button>
+                    <button (click)="game.actionLeft(); getAction('Left')" class='video-game-button'>&#8592;</button>
+                    <button (click)="game.actionRight(); getAction('Right')" class='video-game-button'>&#8594;</button>
+                    <button (click)="game.actionDown(); getAction('Down')" class='video-game-button'>&#8595;</button>
+                </div>
+            </body>
+            <button (click)="highscores()" class="nv-login-submit login100-form-btn">Highscores</button>
+            <button (click)="changeContrast()" class="nv-login-submit login100-form-btn">Change contrast</button>
         </div>
-    </body>
+    </div>
 </div>
-</div>
-</div>
-<app-highscores></app-highscores>

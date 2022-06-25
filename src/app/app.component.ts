@@ -9,23 +9,6 @@ import { User } from './user';
 export class AppComponent {
 
   title = 'snake';
-  public getUserName: string = ''
-  public getUserEmail: string = ''
-  public isVisible : boolean = true
-
-  getUserArray(userData: User){
-    this.getUserName = userData.userName;
-    this.getUserEmail = userData.userEmail;
-  }
-  
-  stateFromUserPanel(newState: any){
-    this.isVisible = newState
-  }
-
-  stateFromGamePanel(newState: any){
-    this.isVisible = newState
-  }
-
   
 }
   
