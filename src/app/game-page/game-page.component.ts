@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostTokenService } from '../post-token.service';
 import { StorageService } from '../storage.service';
 
 
@@ -14,6 +15,7 @@ export class GamePageComponent implements OnInit {
     private _router: Router,
     private _storageService: StorageService,
     private _route: ActivatedRoute,
+    private _post: PostTokenService,
   ) {
     this._route.params.subscribe(params => {
       this.gameParameter = params['colors']
@@ -30,7 +32,7 @@ export class GamePageComponent implements OnInit {
   public actionList: Array<Actions> = [];
   public filter: string = 'asc';
   public gameParameter: string = '';
-
+  public token: string = this._storageService.setToken();
 
   public setInter() {
     this.mSec = this.mSec + 1;
@@ -69,6 +71,9 @@ export class GamePageComponent implements OnInit {
   }
 
   public gameOver() {
+    this._post.sendScores(this.token, this.name, this.counter).subscribe((result) => {
+      console.log(result, "Scores sent to server")
+    })
     alert(`You loose ${this.name}! Your points: ${this.counter} you have played for ${this.sec}.${this.mSec}s`)
     this.counter = 0;
     this.mSec = 0;
@@ -110,6 +115,8 @@ export class GamePageComponent implements OnInit {
     this._storageService.UserName.subscribe(data => {
       this.name = data;
     });
+    
+
   }
 }
 export class Actions {

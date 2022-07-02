@@ -31,6 +31,7 @@ export class IntroPageComponent implements OnInit {
     ]]
   })
   onSubmit(dataFromForm: User) {
+    this._storageService.getTokenFromForm(dataFromForm);
     this._storageService.changeName(dataFromForm.userName);
     console.log(dataFromForm.color)
     this._postToken.sendToken(dataFromForm.token).subscribe(res => {

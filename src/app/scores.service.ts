@@ -25,4 +25,5 @@ export class ScoresService {
     
     return this._http.get<HighScores[]>(URL, options);
   }
+
 }
